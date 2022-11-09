@@ -1,25 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import firebaseAdmin from 'firebase-admin';
-import admin from "firebase-admin";
+import { initializeApp, cert } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
 
 @Injectable()
 export class FirebaseService {
-    constructor(private configService: ConfigService) {
-        const firebaseDatabaseURL = this.configService.get('FIREBASE_DATABASE_URL');
-        const adminConfig = {
-            projectId: configService.get('FIREBASE_PROJECT_ID'),
-            privateKey: configService.get('FIREBASE_PRIVATE_KEY').replace(/\\n/g, '\n'),
-            clientEmail: configService.get('FIREBASE_CLIENT_EMAIL'),
-        };
-
-        firebaseAdmin.initializeApp({
-            credential: admin.credential.cert(adminConfig),
-            databaseURL: firebaseDatabaseURL,
+    constructor() {
+        initializeApp({
+            credential: cert({
+                    projectId: process.env.FIREBASE_PROJECT_ID,
+                    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+                    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+                }
+            )
         });
     }
 
-    async Firestore(): Promise<firebaseAdmin.firestore.Firestore> {
-        return firebaseAdmin.firestore();
+    Firestore() {
+        return getFirestore();
     }
 }
