@@ -4,18 +4,17 @@ import { getFirestore } from 'firebase-admin/firestore';
 
 @Injectable()
 export class FirebaseService {
-    constructor() {
-        initializeApp({
-            credential: cert({
-                    projectId: process.env.FIREBASE_PROJECT_ID,
-                    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-                    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-                }
-            )
-        });
-    }
+  constructor() {
+    initializeApp({
+      credential: cert({
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      }),
+    });
+  }
 
-    Firestore() {
-        return getFirestore();
-    }
+  Firestore() {
+    return getFirestore();
+  }
 }

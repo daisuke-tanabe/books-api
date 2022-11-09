@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Firestore } from 'firebase-admin/firestore';
-import { FirebaseService } from "./firebase/firebase.service";
+import { FirebaseService } from './firebase/firebase.service';
 
 @Injectable()
 export class AppService {
@@ -12,7 +12,7 @@ export class AppService {
 
   async getBooks() {
     const querySnapshot = await this.db.collection('books').get();
-    return querySnapshot.docs.map(doc  => ({ id: doc.id, ...doc.data() }));
+    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   }
 
   async getBookById(id: string) {
@@ -25,7 +25,7 @@ export class AppService {
   async createBook(title: string, author: string) {
     await this.db.collection('books').add({
       title,
-      author
+      author,
     });
   }
 }
