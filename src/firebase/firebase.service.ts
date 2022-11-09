@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { initializeApp, cert } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
+import { getFirestore, Firestore } from 'firebase-admin/firestore';
 
 @Injectable()
 export class FirebaseService {
+  readonly firestore: Firestore;
+
   constructor() {
     initializeApp({
       credential: cert({
@@ -12,9 +14,7 @@ export class FirebaseService {
         privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
       }),
     });
-  }
 
-  Firestore() {
-    return getFirestore();
+    this.firestore = getFirestore();
   }
 }

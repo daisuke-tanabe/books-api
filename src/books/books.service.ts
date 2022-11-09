@@ -1,29 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { Firestore } from 'firebase-admin/firestore';
 import { FirebaseService } from '../firebase/firebase.service';
 
 @Injectable()
 export class BooksService {
-  private db: Firestore;
-
-  constructor(private firebaseService: FirebaseService) {
-    this.db = firebaseService.Firestore();
-  }
+  constructor(private firebaseService: FirebaseService) {}
 
   async getBooks() {
-    const querySnapshot = await this.db.collection('books').get();
+    const querySnapshot = await this.firebaseService.firestore.collection('books').get();
     return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   }
 
   async getBookById(id: string) {
-    const bookRef = this.db.collection('books').doc(id);
+    const bookRef = this.firebaseService.firestore.collection('books').doc(id);
     const bookDoc = await bookRef.get();
     if (!bookDoc.data()) return {};
     return { id: bookDoc.id, ...bookDoc.data() };
   }
 
   async createBook(title: string, author: string) {
-    await this.db.collection('books').add({
+    await this.firebaseService.firestore.collection('books').add({
       title,
       author,
     });
