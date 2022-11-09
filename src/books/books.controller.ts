@@ -7,11 +7,11 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { AppService } from './app.service';
+import { BooksService } from './books.service';
 
 @Controller('books')
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+export class BooksController {
+  constructor(private readonly appService: BooksService) {}
 
   @Get()
   getBooks() {
