@@ -8,6 +8,7 @@ import { FirebaseService } from './firebase/firebase.service';
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
+      isGlobal: true,
     }),
   ],
   controllers: [AppController],
