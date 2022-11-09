@@ -9,7 +9,9 @@ export class BooksService {
     const querySnapshot = await this.firebaseService.firestore
       .collection('books')
       .get();
-    return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    return {
+      books: querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
+    };
   }
 
   async getBookById(id: string) {
