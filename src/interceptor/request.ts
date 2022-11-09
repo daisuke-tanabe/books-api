@@ -1,10 +1,9 @@
 import {
   CallHandler,
   ExecutionContext,
-  HttpException,
-  HttpStatus,
   Injectable,
   NestInterceptor,
+  BadRequestException,
 } from '@nestjs/common';
 import { map, Observable } from 'rxjs';
 
@@ -17,33 +16,10 @@ export class RequestInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((data) => {
         if (contentType !== 'application/json') {
-          throw new HttpException(
-            {
-              status: 'Bad Request',
-              message:
-                'Client sent an invalid request, such as lacking required request body or parameter.',
-            },
-            HttpStatus.BAD_REQUEST,
-          );
+          throw new BadRequestException();
         }
         return data;
       }),
     );
-    // if (contentType !== 'application/json') {
-    //    console.log(contentType);
-    //    return next
-    //      .handle()
-    //      .pipe(
-    //         catchError(err =>
-    //           throwError(
-    //             () =>
-    //               new HttpException(
-    //                 'Exception interceptor message',
-    //                 HttpStatus.BAD_GATEWAY,
-    //               ),
-    //           ),
-    //         )
-    //      );
-    // }
   }
 }
