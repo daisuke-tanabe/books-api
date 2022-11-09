@@ -7,7 +7,7 @@ import { BooksModule } from './books/books.module';
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
-    BooksModule
-  ]
+    BooksModule,
+  ],
 })
 export class AppModule {}

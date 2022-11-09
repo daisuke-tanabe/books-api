@@ -6,7 +6,9 @@ export class BooksService {
   constructor(private firebaseService: FirebaseService) {}
 
   async getBooks() {
-    const querySnapshot = await this.firebaseService.firestore.collection('books').get();
+    const querySnapshot = await this.firebaseService.firestore
+      .collection('books')
+      .get();
     return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   }
 
