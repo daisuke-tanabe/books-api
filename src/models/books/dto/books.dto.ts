@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, Length } from 'class-validator';
 
 export class GetBookByIdDto {
   id: string;
@@ -7,9 +7,11 @@ export class GetBookByIdDto {
 export class CreateBooksDto {
   @IsNotEmpty()
   @IsString()
+  @Length(0, 512)
   title: string;
 
   @IsNotEmpty()
   @IsString()
+  @Length(0, 256)
   author: string;
 }
