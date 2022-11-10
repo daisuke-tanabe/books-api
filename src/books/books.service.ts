@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { firestore } from 'firebase-admin';
 import { FirebaseService } from '../firebase/firebase.service';
 
 @Injectable()
@@ -25,6 +26,7 @@ export class BooksService {
     await this.firebaseService.firestore.collection('books').add({
       title,
       author,
+      createdAt: firestore.Timestamp.now()
     });
   }
 }
