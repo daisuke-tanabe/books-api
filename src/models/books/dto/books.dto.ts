@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsString, Length } from 'class-validator';
 
 export class GetBookByIdDto {
+  @IsString()
   id: string;
 }
 

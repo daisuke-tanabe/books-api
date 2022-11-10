@@ -9,6 +9,9 @@ async function bootstrap() {
       // 詳細なエラーを無効化する
       // https://docs.nestjs.com/techniques/validation#disable-detailed-errors
       disableErrorMessages: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      forbidUnknownValues: true,
     }),
   );
   await app.listen(8080);
