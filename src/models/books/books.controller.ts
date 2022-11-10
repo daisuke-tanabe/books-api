@@ -10,7 +10,6 @@ import {
 import { BooksService } from './books.service';
 import { GetBookByIdDto, CreateBooksDto } from './dto/books.dto';
 import { RequestInterceptor } from '../../shared/interceptor/request';
-import {type} from "os";
 
 @Controller('books')
 export class BooksController {
