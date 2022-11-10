@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { firestore } from 'firebase-admin';
-import { FirebaseService } from '../firebase/firebase.service';
+import { FirebaseService } from '../../shared/firebase/firebase.service';
 
 @Injectable()
 export class BooksService {

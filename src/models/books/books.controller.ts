@@ -8,7 +8,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
-import { RequestInterceptor } from '../interceptor/request';
+import { RequestInterceptor } from '../../shared/interceptor/request';
 
 @Controller('books')
 export class BooksController {
