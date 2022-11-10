@@ -9,6 +9,7 @@ export class BooksService {
   async getBooks() {
     const querySnapshot = await this.firebaseService.firestore
       .collection('books')
+      .orderBy('createdAt', 'desc')
       .get();
     return {
       books: querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })),
@@ -26,7 +27,7 @@ export class BooksService {
     await this.firebaseService.firestore.collection('books').add({
       title,
       author,
-      createdAt: firestore.Timestamp.now()
+      createdAt: firestore.Timestamp.now(),
     });
   }
 }
