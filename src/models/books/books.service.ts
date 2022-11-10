@@ -6,10 +6,11 @@ import { FirebaseService } from '../../shared/firebase/firebase.service';
 export class BooksService {
   constructor(private firebaseService: FirebaseService) {}
 
-  async getBooks() {
+  async getBooks({ limit, order }) {
     const querySnapshot = await this.firebaseService.firestore
       .collection('books')
-      .orderBy('createdAt', 'desc')
+      .orderBy('createdAt', order)
+      .limit(limit)
       .get();
     return {
       books: querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })),

@@ -4,8 +4,10 @@ import {
   Get,
   Post,
   Param,
+  Query,
   UseInterceptors,
   BadRequestException,
+  DefaultValuePipe,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { GetBookByIdDto, CreateBooksDto } from './dto/books.dto';
@@ -16,8 +18,11 @@ export class BooksController {
   constructor(private readonly appService: BooksService) {}
 
   @Get()
-  getBooks() {
-    return this.appService.getBooks();
+  getBooks(
+    @Query('limit', new DefaultValuePipe(20)) limit?: number,
+    @Query('order', new DefaultValuePipe('desc')) order?: 'desc' | 'asc',
+  ) {
+    return this.appService.getBooks({ limit, order });
   }
 
   @Get('/:id')
