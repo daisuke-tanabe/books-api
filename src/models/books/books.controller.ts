@@ -8,6 +8,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
+import { GetBookByIdDto, CreateBooksDto } from './dto/books.dto';
 import { RequestInterceptor } from '../../shared/interceptor/request';
 
 @Controller('books')
@@ -20,13 +21,15 @@ export class BooksController {
   }
 
   @Get('/:id')
-  getBook(@Param('id') id: string) {
+  getBook(@Param() getBookByIdDto: GetBookByIdDto) {
+    const { id } = getBookByIdDto;
     return this.appService.getBookById(id);
   }
 
   @UseInterceptors(new RequestInterceptor())
   @Post()
-  createBook(@Body('title') title: string, @Body('author') author: string) {
+  createBook(@Body() createBooksDto: CreateBooksDto) {
+    const { title, author } = createBooksDto;
     if (!title || !author) {
       throw new BadRequestException();
     }
