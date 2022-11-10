@@ -10,7 +10,6 @@ export class CreateBooksDto {
   @Length(0, 512)
   title: string;
 
-  @IsNotEmpty()
   @IsString()
   @Length(0, 256)
   author: string;

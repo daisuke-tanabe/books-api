@@ -10,6 +10,7 @@ import {
 import { BooksService } from './books.service';
 import { GetBookByIdDto, CreateBooksDto } from './dto/books.dto';
 import { RequestInterceptor } from '../../shared/interceptor/request';
+import {type} from "os";
 
 @Controller('books')
 export class BooksController {
@@ -30,7 +31,7 @@ export class BooksController {
   @Post()
   createBook(@Body() createBooksDto: CreateBooksDto) {
     const { title, author } = createBooksDto;
-    if (!title || !author) {
+    if (!title || typeof author === 'undefined') {
       throw new BadRequestException();
     }
     this.appService.createBook(title, author);
